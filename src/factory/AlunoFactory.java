@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class AlunoFactory {
     private static final String USERNAEM = "root";
-    private static final String PASSWORD = "coloca sua senha aqui filho da mae ";
+    private static final String PASSWORD = "root";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/aplicativo_java";
 
     public static Connection createConnectionToMySQL() throws Exception {
