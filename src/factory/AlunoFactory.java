@@ -4,27 +4,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class AlunoFactory {
-    private static final String USERNAEM = "root";
-    private static final String PASSWORD = "root";
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/aplicativo_java";
+    private final String USERNAEM = "root";
+    private final String PASSWORD = "root";
+    private final String DATABASE_URL = "jdbc:mysql://localhost:3306/aplicativo_java";
 
-    public static Connection createConnectionToMySQL() throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+    public Connection createConnectionToMySQL() throws Exception {
+        Connection connection = null;
 
-        Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAEM, PASSWORD);
-
-        return connection;
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        Connection con = createConnectionToMySQL();
-
-        if (con != null) {
+        try {
+            connection = DriverManager.getConnection(DATABASE_URL, USERNAEM, PASSWORD);
             System.out.println("Conexão obtida!");
-            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
+        return connection;
     }
 
 }

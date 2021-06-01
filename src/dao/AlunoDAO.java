@@ -21,7 +21,7 @@ public class AlunoDAO {
         PreparedStatement pstm = null;
 
         try {
-            conn = AlunoFactory.createConnectionToMySQL();
+            conn = new AlunoFactory().createConnectionToMySQL();
             pstm = (PreparedStatement) conn.prepareStatement(sql);
             pstm.setString(1, aluno.getNome());
             pstm.setString(2, aluno.getCidade());
@@ -53,7 +53,7 @@ public class AlunoDAO {
         PreparedStatement pstm = null;
 
         try {
-            conn = AlunoFactory.createConnectionToMySQL();
+            conn = new AlunoFactory().createConnectionToMySQL();
             pstm = (PreparedStatement) conn.prepareStatement(sql);
             pstm.setInt(1, telefone.getIdaluno());
             pstm.setString(2, telefone.getNumero());
@@ -88,7 +88,7 @@ public class AlunoDAO {
         ResultSet rset = null;
 
         try {
-            conn = AlunoFactory.createConnectionToMySQL();
+            conn = new AlunoFactory().createConnectionToMySQL();
 
             pstm = conn.prepareStatement(sql);
 
@@ -137,7 +137,7 @@ public class AlunoDAO {
         PreparedStatement pstm = null;
 
         try {
-            conn = AlunoFactory.createConnectionToMySQL();
+            conn = new AlunoFactory().createConnectionToMySQL();
 
             pstm = conn.prepareStatement(sql);
             pstm.setString(1, aluno.getNome());
