@@ -7,6 +7,7 @@ public class MenuList {
     private String title;
     private List<String> items;
     private int itemSelected;
+    private Scanner scanner;
 
     public MenuList(String title) {
         super();
@@ -31,7 +32,7 @@ public class MenuList {
     }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
         System.out.println(title + "\n");
         for (int index = 0; index < items.size(); index++) {
             System.out.println((index + 1) + " - " + items.get(index) + ";");
@@ -40,6 +41,5 @@ public class MenuList {
 
                            "Enter the option number:");
         itemSelected = scanner.nextInt();
-        scanner.close();
     }
 }
