@@ -11,7 +11,7 @@ import classes.Telefone;
 import factory.Factory;
 
 public class AlunoDAO {
-    private PreparedStatement pstm = null;
+    private PreparedStatement pstm;
     private String sql;
     private List<Aluno> alunos;
     private ResultSet rset;
@@ -20,10 +20,76 @@ public class AlunoDAO {
     private Telefone telefone;
     private int id;
 
-    private void setPstm() {
-        pstm = null;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+        sql = "INSERT INTO aluno(nome,cidade,estado) VALUES(?, ?, ?)";
+        runSql("setAluno");
+    }
+
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
+        sql = "INSERT INTO telefone(idaluno,numero) VALUES(?, ?)";
+        runSql("setTelefone");
+    }
+
+    public List<Aluno> getAlunos() {
+        sql = "SELECT * FROM aluno";
+        runSql("getAlunos");
+        return alunos;
+    }
+
+    public void updtAluno(Aluno aluno) {
+        this.aluno = aluno;
+        sql = "UPDATE aplicativo_java.aluno SET nome=? ,cidade =?, estado= ?" + " WHERE (idaluno = ?)";
+        runSql("updtAluno");
+    }
+
+    public void delAluno(int id) {
+        this.id = id;
+        sql = "DELETE FROM aluno WHERE idaluno=?";
+        runSql("delAluno");
+    }
+
+    public List<Telefone> getTelefone(int id) {
+        runSql("getTelefone");
+        sql = "SELECT * FROM telefone WHERE idaluno IN (?)";
+        return telefones;
+    }
+
+    public int getLastId() {
+        runSql("getLastId");
+        sql = "select max(idaluno) from aluno";
+        return id;
+    }
+
+    private void runSql(String option) {
         try {
             pstm = (PreparedStatement) new Factory().createConnectionToMySQL().prepareStatement(sql);
+            switch (option) {
+                case "setAluno":
+                    runSetAluno();
+                    break;
+                case "setTelefone":
+                    runSetTelefone();
+                    break;
+                case "updtAluno":
+                    runUpdtAluno();
+                    break;
+                case "delAluno":
+                    runDelAluno();
+                    break;
+                case "getAlunos":
+                    runGetAlunos();
+                    break;
+                case "getTelefone":
+                    runGetTelefone();
+                    break;
+                case "getLastId":
+                    runGetLastId();
+                    break;
+                default:
+                    break;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -37,10 +103,8 @@ public class AlunoDAO {
         }
     }
 
-    public void save(Aluno aluno) {
-        sql = "INSERT INTO aluno(nome,cidade,estado) VALUES(?, ?, ?)";
+    private void runSetAluno() {
         try {
-            setPstm();
             pstm.setString(1, aluno.getNome());
             pstm.setString(2, aluno.getCidade());
             pstm.setString(3, aluno.getEstado());
@@ -49,12 +113,10 @@ public class AlunoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    };
 
-    public void savetelefone(Telefone telefone) {
-        sql = "INSERT INTO telefone(idaluno,numero) VALUES(?, ?)";
+    private void runSetTelefone() {
         try {
-            setPstm();
             pstm.setInt(1, telefone.getIdaluno());
             pstm.setString(2, telefone.getNumero());
             pstm.execute();
@@ -62,17 +124,14 @@ public class AlunoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    };
 
-    public List<Aluno> getAluno() throws Exception {
-        sql = "SELECT * FROM aluno";
+    private void runGetAlunos() {
         alunos = new ArrayList<Aluno>();
-        rset = null;
         try {
-            setPstm();
             rset = pstm.executeQuery();
-            aluno = new Aluno();
             while (rset.next()) {
+                aluno = new Aluno();
                 aluno.setIdaluno(rset.getInt("idaluno"));
                 aluno.setNome(rset.getString("nome"));
                 aluno.setCidade(rset.getString("cidade"));
@@ -82,13 +141,10 @@ public class AlunoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return alunos;
     }
 
-    public void updateAluno(Aluno aluno) throws Exception {
-        sql = "UPDATE aplicativo_java.aluno SET nome=? ,cidade =?, estado= ?" + " WHERE (idaluno = ?)";
+    private void runUpdtAluno() {
         try {
-            setPstm();
             pstm.setString(1, aluno.getNome());
             pstm.setString(2, aluno.getCidade());
             pstm.setString(3, aluno.getEstado());
@@ -99,28 +155,23 @@ public class AlunoDAO {
         }
     }
 
-    public void deletarAluno(int idaluno) throws Exception {
-        sql = "DELETE FROM aluno WHERE idaluno=?";
+    private void runDelAluno() {
         try {
-            setPstm();
-            pstm.setInt(1, idaluno);
+            pstm.setInt(1, id);
             pstm.execute();
-            System.out.println("Aluno de ID " + idaluno + " apagado, com sucesso!");
+            System.out.println("Aluno de ID " + id + " apagado, com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public List<Telefone> getTelefone(int Idaluno) throws Exception {
-        sql = "SELECT * FROM telefone WHERE idaluno IN (?)";
+    private void runGetTelefone() {
         telefones = new ArrayList<Telefone>();
-        rset = null;
         try {
-            setPstm();
-            pstm.setInt(1, Idaluno);
+            pstm.setInt(1, id);
             rset = pstm.executeQuery();
-            telefone = new Telefone();
             while (rset.next()) {
+                telefone = new Telefone();
                 telefone.setIdaluno(rset.getInt("idaluno"));
                 telefone.setIdtelefone(rset.getInt("idtelefone"));
                 telefone.setNumero(rset.getString("numero"));
@@ -131,15 +182,11 @@ public class AlunoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return telefones;
     }
 
-    public int lastId() {
-        sql = "select max(idaluno) from aluno";
+    private void runGetLastId() {
         id = 0;
-        rset = null;
         try {
-            setPstm();
             rset = pstm.executeQuery();
             rset.next();
             id = rset.getInt("max(idaluno)");
@@ -147,6 +194,5 @@ public class AlunoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return id;
     }
 }
