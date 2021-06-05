@@ -38,7 +38,7 @@ public class Cadastro {
     }
 
     public void dadosAluno() throws Exception {
-        for (Aluno aluno : (alunoDAO.getaluno())) {
+        for (Aluno aluno : (alunoDAO.getAluno())) {
             System.out.println("ID Aluno: " + aluno.getIdaluno() + "\nAluno: " + aluno.getNome() + "\nCidade: "
                     + aluno.getCidade() + "\nEstado: " + aluno.getEstado());
         }
@@ -55,7 +55,23 @@ public class Cadastro {
         System.out.println("Digite a Cidade");
         aluno.setCidade(scanner.next());
 
-        alunoDAO.update_aluno(aluno);
+        alunoDAO.updateAluno(aluno);
     }
 
+    public void apagarAluno() throws Exception {
+        System.out.println("Digite o Id do aluno que deseja deletar: ");
+        alunoDAO.deletarAluno(scanner.nextInt());
+    }
+
+    public void exibirTelefonesAluno() throws Exception {
+        System.out.println("Digite o idaluno: ");
+        for (Telefone telefone : alunoDAO.getTelefone(scanner.nextInt())) {
+            System.out.println("ID Aluno: " + telefone.getIdaluno() + " ID Telefone: " + telefone.getIdtelefone()
+                    + "\n Numero: " + telefone.getNumero());
+        }
+    }
+
+    public void ultimo_id(){
+        System.out.println(alunoDAO.lastId());
+    }
 }
