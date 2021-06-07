@@ -15,11 +15,10 @@ public class App {
 
         boolean run = true;
         while (run) {
-            menu.run();
+            menu.print();
             switch (menu.getItemSelected()) {
                 case 1:
                     cadastro.cadAluno();
-                    cadastro.cadTelefone();
                     break;
                 case 2:
                     cadastro.attAluno();
@@ -28,7 +27,7 @@ public class App {
                     cadastro.delAluno();
                     break;
                 case 4:
-                    cadastro.exibirAluno();
+                    cadastro.exibirAlunos();
                     break;
                 case 5:
                     cadastro.exibirTelefonesAluno();
