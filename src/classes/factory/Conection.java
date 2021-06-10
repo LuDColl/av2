@@ -1,10 +1,10 @@
-package factory;
+package classes.factory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Factory {
+public class Conection {
     private final String USERNAEM = "root";
     private final String PASSWORD = "root";
     private final String DATABASE_URL = "jdbc:mysql://localhost:3306/aplicativo_java";

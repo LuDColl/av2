@@ -1,15 +1,13 @@
-import classes.Cadastro;
 import classes.MenuList;
+import classes.cadastro.Cadastro;
 
 public class App {
     public static void main(String[] args) throws Exception {
         MenuList menu = new MenuList("Banco de Dados");
-        menu.addItem("Cadastrar Aluno");
-        menu.addItem("Atualizar Aluno");
-        menu.addItem("Deletar Aluno");
-        menu.addItem("Exibir Alunos");
-        menu.addItem("Exibir Telefones do Aluno");
-        menu.addItem("Exibir Id do Ultimo Aluno Cadastrado");
+        menu.addItem("Incluir");
+        menu.addItem("Alterar");
+        menu.addItem("Excluir");
+        menu.addItem("Consultar");
 
         Cadastro cadastro = new Cadastro();
 
@@ -18,22 +16,16 @@ public class App {
             menu.print();
             switch (menu.getItemSelected()) {
                 case 1:
-                    cadastro.cadAluno();
+                    cadastro.incluir();
                     break;
                 case 2:
-                    cadastro.attAluno();
+                    cadastro.alterar();
                     break;
                 case 3:
-                    cadastro.delAluno();
+                    cadastro.excluir();
                     break;
                 case 4:
-                    cadastro.exibirAlunos();
-                    break;
-                case 5:
-                    cadastro.exibirTelefonesAluno();
-                    break;
-                case 6:
-                    cadastro.ultimoId();
+                    cadastro.consultar();
                     break;
                 case 0:
                     run = false;

@@ -7,6 +7,10 @@ public class Telefone {
     private String numero2;
     private String numero3;
 
+    public Telefone(int idAluno){
+        this.idAluno = idAluno;
+    }
+
     public String getNumero() {
         return numero;
     }
@@ -27,20 +31,16 @@ public class Telefone {
         this.numero2 = numero2;
     }
 
-    public int getIdtelefone() {
+    public int getId() {
         return idTelefone;
     }
 
-    public void setIdtelefone(int idtelefone) {
+    public void setId(int idtelefone) {
         this.idTelefone = idtelefone;
     }
 
     public int getIdaluno() {
         return idAluno;
-    }
-
-    public void setIdaluno(int idaluno) {
-        this.idAluno = idaluno;
     }
 
     public void setNumero(String numero) {

@@ -1,7 +1,7 @@
 package classes;
 
 public class Aluno {
-    private int idaluno;
+    private int id;
     private String nome;
     private String cidade;
     private String estado;
@@ -10,12 +10,12 @@ public class Aluno {
         return nome;
     }
 
-    public int getIdaluno() {
-        return idaluno;
+    public int getId() {
+        return id;
     }
 
-    public void setIdaluno(int idaluno) {
-        this.idaluno = idaluno;
+    public void setIdaluno(int id) {
+        this.id = id;
     }
 
     public String getCidade() {
