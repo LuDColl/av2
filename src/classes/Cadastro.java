@@ -18,11 +18,11 @@ public class Cadastro {
     public void cadAluno() {
         aluno = new Aluno();
         System.out.println("Cadastro Aluno\n\n" + "Digite o nome do aluno:");
-        aluno.setNome(scanner.next());
+        aluno.setNome(scanner.nextLine());
         System.out.println("Digite a Cidade:");
-        aluno.setCidade(scanner.next());
+        aluno.setCidade(scanner.nextLine());
         System.out.println("Digite o estado:");
-        aluno.setEstado(scanner.next());
+        aluno.setEstado(scanner.nextLine());
         alunoDAO.setAluno(aluno);
         System.out.println();
         cadTelefone(alunoDAO.getLastId());
@@ -33,7 +33,7 @@ public class Cadastro {
         System.out.println("Cadastro Telefone\n\n" + "Digite o ID do aluno:");
         telefone.setIdaluno(scanner.nextInt());
         System.out.println("Digite o numero do aluno:");
-        telefone.setNumero(scanner.next());
+        telefone.setNumero(scanner.nextLine());
         alunoDAO.setTelefone(telefone);
         System.out.println();
     }
@@ -42,7 +42,7 @@ public class Cadastro {
         telefone = new Telefone();
         telefone.setIdaluno(id);
         System.out.println("Cadastro Telefone\n\n" + "Digite o numero do aluno:");
-        telefone.setNumero(scanner.next());
+        telefone.setNumero(scanner.nextLine());
         alunoDAO.setTelefone(telefone);
         System.out.println();
     }
@@ -62,11 +62,11 @@ public class Cadastro {
         System.out.println("Atualizar Aluno\n\n" + "Qual ID do Aluno:");
         aluno.setIdaluno(scanner.nextInt());
         System.out.println("Digite o nome do Aluno:");
-        aluno.setNome(scanner.next());
+        aluno.setNome(scanner.nextLine());
         System.out.println("Digite o estado:");
-        aluno.setEstado(scanner.next());
+        aluno.setEstado(scanner.nextLine());
         System.out.println("Digite a Cidade");
-        aluno.setCidade(scanner.next());
+        aluno.setCidade(scanner.nextLine());
         alunoDAO.updtAluno(aluno);
         System.out.println();
     }
@@ -78,7 +78,7 @@ public class Cadastro {
     }
 
     public void exibirTelefonesAluno() throws Exception {
-        System.out.println("Exibir Telefones do Aluno\n\n" + "Digite o id do aluno: ");
+        System.out.println("Telefones do Aluno\n\n" + "Digite o id do aluno: ");
         for (Telefone telefone : alunoDAO.getTelefone(scanner.nextInt())) {
             System.out.println("ID Aluno: " + telefone.getIdaluno() + " ID Telefone: " + telefone.getIdtelefone()
                     + "\n Numero: " + telefone.getNumero() + "\n");
@@ -87,7 +87,7 @@ public class Cadastro {
     }
 
     private void exibirTelefonesAluno(int id) throws Exception {
-        System.out.println("Exibir Telefones do Aluno\n\n" + "Digite o id do aluno: ");
+        System.out.println("Telefones do Aluno com o id: " + id + ".\n\n");
         for (Telefone telefone : alunoDAO.getTelefone(id)) {
             System.out.println("ID Aluno: " + telefone.getIdaluno() + " ID Telefone: " + telefone.getIdtelefone()
                     + "\n Numero: " + telefone.getNumero() + "\n");
@@ -96,7 +96,6 @@ public class Cadastro {
     }
 
     public void ultimoId() {
-        System.out.println("Id do Ultimo Aluno\n\n" + alunoDAO.getLastId());
-        System.out.println();
+        System.out.println("Id do Ultimo Aluno: \n\n" + alunoDAO.getLastId() + ".\n\n");
     }
 }

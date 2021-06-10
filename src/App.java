@@ -39,6 +39,7 @@ public class App {
                     run = false;
                     break;
                 default:
+                    System.out.println(menu.getItemSelected() + " não é um valor válido.\n");
                     break;
             }
         }

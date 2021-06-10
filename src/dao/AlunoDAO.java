@@ -51,14 +51,14 @@ public class AlunoDAO {
     }
 
     public List<Telefone> getTelefone(int id) {
-        runSql("getTelefone");
         sql = "SELECT * FROM telefone WHERE idaluno IN (?)";
+        runSql("getTelefone");
         return telefones;
     }
 
     public int getLastId() {
-        runSql("getLastId");
         sql = "select max(idaluno) from aluno";
+        runSql("getLastId");
         return id;
     }
 

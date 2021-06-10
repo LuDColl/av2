@@ -1,4 +1,5 @@
 package classes;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -39,8 +40,9 @@ public class MenuList {
         }
         System.out.println("0 - Exit.\n\n" +
 
-                           "Enter the option number:");
+                "Enter the option number:");
         itemSelected = scanner.nextInt();
+        System.out.println();
     }
 
 }
