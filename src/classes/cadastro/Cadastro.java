@@ -45,11 +45,11 @@ public class Cadastro {
         RunSql runSql;
         for (Aluno aluno : new RunSql().getAlunos()) {
             System.out.println("Aluno\nId: " + aluno.getId() + "\nNome: " + aluno.getNome() + "\nEstado: "
-                    + aluno.getEstado() + "\nCidade: " + aluno.getCidade() + "\n\nTelefones");
+                    + aluno.getEstado() + "\nCidade: " + aluno.getCidade());
             runSql = new RunSql();
             runSql.setId(aluno.getId());
-            for (Telefone telefone : new RunSql().getTelefones()) {
-                System.out.println("Id: " + telefone.getId() + "\nNumero: " + telefone.getNumero() + "\n");
+            for (Telefone telefone : runSql.getTelefones()) {
+                System.out.println("\n\nTelefones de " + aluno.getNome() + "\nId: " + telefone.getId() + "\nNumero: " + telefone.getNumero() + "\n");
             }
         }
     }

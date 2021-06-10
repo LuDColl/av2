@@ -1,9 +1,9 @@
-import classes.MenuList;
+import classes.Menu;
 import classes.cadastro.Cadastro;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        MenuList menu = new MenuList("Banco de Dados");
+        Menu menu = new Menu("Banco de Dados");
         menu.addItem("Incluir");
         menu.addItem("Alterar");
         menu.addItem("Excluir");
