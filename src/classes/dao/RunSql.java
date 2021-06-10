@@ -9,24 +9,21 @@ import classes.Aluno;
 import classes.Telefone;
 
 public class RunSql {
-    private PreparedStatement pstm;
-    private ResultSet rset;
-    private Aluno aluno;
-    private ArrayList<Aluno> alunos;
-    private Telefone telefone;
-    private ArrayList<Telefone> telefones;
-    private int id;
+    PreparedStatement pstm;
+    ResultSet rset;
+    ArrayList<Aluno> alunos;
+    ArrayList<Telefone> telefones;
 
-    public RunSql(PreparedStatement pstm){
-        super();
-        this.pstm = pstm;
+    Aluno aluno;
+    Telefone telefone;
+    int id;
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public RunSql setAluno() {
-        return null;
-    }
-
-    public void runInAluno(Aluno aluno) {
+    public void inAluno(Aluno aluno) {
+        pstm = new PreparePstm(new Sql().inAluno()).getPstm();
         try {
             pstm.setString(1, aluno.getNome());
             pstm.setString(2, aluno.getCidade());
@@ -36,52 +33,68 @@ public class RunSql {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    };
+    }
 
-    public void runInTelefone(Telefone telefone) {
+    public void inTelefone(Telefone telefone) {
+        pstm = new PreparePstm(new Sql().inTelefone()).getPstm();
         try {
             pstm.setInt(1, telefone.getIdaluno());
             pstm.setString(2, telefone.getNumero());
             pstm.execute();
             System.out.println("Executado com sucesso!");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-    };
+    }
 
-    public void runUpAluno(Aluno aluno) {
+    public void upAluno(Aluno aluno) {
+        pstm = new PreparePstm(new Sql().upAluno()).getPstm();
         try {
             pstm.setString(1, aluno.getNome());
             pstm.setString(2, aluno.getCidade());
             pstm.setString(3, aluno.getEstado());
             pstm.setInt(4, aluno.getId());
             pstm.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void runUpTelefone(Telefone telefone) {
+    public void upTelefone(Telefone telefone) {
+        pstm = new PreparePstm(new Sql().upTelefone()).getPstm();
         try {
             pstm.setString(1, telefone.getNumero());
             pstm.setInt(2, telefone.getIdaluno());
             pstm.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void runDelAluno(int id) {
+    public void delAluno(int id) {
+        pstm = new PreparePstm(new Sql().delAluno()).getPstm();
         try {
             pstm.setInt(1, id);
             pstm.execute();
             System.out.println("Aluno de ID " + id + " apagado, com sucesso!");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void runGetAlunos() {
+    public void delTelefones(int id) {
+        pstm = new PreparePstm(new Sql().delTelefones()).getPstm();
+        try {
+            pstm.setInt(1, id);
+            pstm.execute();
+            System.out.println("Telefones do aluno de ID " + id + " apagados com sucesso!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Aluno> getAlunos() {
+        pstm = new PreparePstm(new Sql().getAlunos()).getPstm();
         alunos = new ArrayList<Aluno>();
         try {
             rset = pstm.executeQuery();
@@ -96,9 +109,11 @@ public class RunSql {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return alunos;
     }
 
-    public void runGetTelefone() {
+    public ArrayList<Telefone> getTelefones() {
+        pstm = new PreparePstm(new Sql().getTelefones()).getPstm();
         telefones = new ArrayList<Telefone>();
         try {
             pstm.setInt(1, id);
@@ -113,10 +128,11 @@ public class RunSql {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return telefones;
     }
 
-    public void runGetLastId() {
-        id = 0;
+    public int getLastId() {
+        pstm = new PreparePstm(new Sql().getLastId()).getPstm();
         try {
             rset = pstm.executeQuery();
             rset.next();
@@ -125,5 +141,6 @@ public class RunSql {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return id;
     }
 }

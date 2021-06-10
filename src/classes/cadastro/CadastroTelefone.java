@@ -24,4 +24,6 @@ public class CadastroTelefone {
         telefone.setNumero(scanner.nextLine());
         System.out.println();
     }
+
+    
 }

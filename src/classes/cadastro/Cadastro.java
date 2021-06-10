@@ -2,7 +2,7 @@ package classes.cadastro;
 
 import classes.Aluno;
 import classes.Telefone;
-import classes.dao.Dao;
+import classes.dao.RunSql;
 
 public class Cadastro {
     private Aluno aluno;
@@ -15,50 +15,42 @@ public class Cadastro {
     public void incluir() {
         aluno = new Aluno();
         new CadastroAluno(aluno).cadAluno();
-        new Dao().inAluno(aluno);
+        new RunSql().inAluno(aluno);
 
-        telefone = new Telefone(new Dao().getLastId());
+        telefone = new Telefone(new RunSql().getLastId());
         new CadastroTelefone(telefone).cadTelefone();
-        new Dao().inTelefone(telefone);
+        new RunSql().inTelefone(telefone);
     }
 
     public void alterar() {
         aluno = new Aluno();
         new CadastroAluno(aluno).altAluno();
-        new Dao().upAluno(aluno);
+        new RunSql().upAluno(aluno);
 
         telefone = new Telefone(aluno.getId());
         new CadastroTelefone(telefone).altTelefone();
-        new Dao().upTelefone(telefone);
-    }
-
-    public void consultar() {
-
+        new RunSql().upTelefone(telefone);
     }
 
     public void excluir() {
         aluno = new Aluno();
         new CadastroAluno(aluno).exAluno();
-        new Dao().delTelefone(aluno.getId());
-        new Dao().delAluno(aluno.getId());
+
+        new RunSql().delTelefones(aluno.getId());
+        new RunSql().delAluno(aluno.getId());
     }
 
-    public void exibirAlunos() throws Exception {
+    public void consultar() {
         System.out.println("Alunos\n\n");
-        for (Aluno aluno : (new Dao().getAlunos())) {
-            System.out.println("ID Aluno: " + aluno.getId() + "\nAluno: " + aluno.getNome() + "\nCidade: "
-                    + aluno.getCidade() + "\nEstado: " + aluno.getEstado() + "\n");
-            exibirTelefonesAluno(aluno.getId());
+        RunSql runSql;
+        for (Aluno aluno : new RunSql().getAlunos()) {
+            System.out.println("Aluno\nId: " + aluno.getId() + "\nNome: " + aluno.getNome() + "\nEstado: "
+                    + aluno.getEstado() + "\nCidade: " + aluno.getCidade() + "\n\nTelefones");
+            runSql = new RunSql();
+            runSql.setId(aluno.getId());
+            for (Telefone telefone : new RunSql().getTelefones()) {
+                System.out.println("Id: " + telefone.getId() + "\nNumero: " + telefone.getNumero() + "\n");
+            }
         }
-        System.out.println();
-    }
-
-    private void exibirTelefonesAluno(int id) throws Exception {
-        System.out.println("Telefones do Aluno com o id: " + id + ".\n\n");
-        for (Telefone telefone : new Dao().getTelefones(id)) {
-            System.out.println("ID Aluno: " + telefone.getIdaluno() + " ID Telefone: " + telefone.getId()
-                    + "\n Numero: " + telefone.getNumero() + "\n");
-        }
-        System.out.println();
     }
 }
