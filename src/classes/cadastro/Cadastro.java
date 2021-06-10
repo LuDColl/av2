@@ -1,12 +1,14 @@
 package classes.cadastro;
 
+import java.util.ArrayList;
+
 import classes.Aluno;
 import classes.Telefone;
 import classes.dao.RunSql;
 
 public class Cadastro {
     private Aluno aluno;
-    private Telefone telefone;
+    private ArrayList<Telefone> telefones;
 
     public Cadastro() {
         super();
@@ -17,9 +19,11 @@ public class Cadastro {
         new CadastroAluno(aluno).cadAluno();
         new RunSql().inAluno(aluno);
 
-        telefone = new Telefone(new RunSql().getLastId());
-        new CadastroTelefone(telefone).cadTelefone();
-        new RunSql().inTelefone(telefone);
+        telefones = new ArrayList<Telefone>();
+        new CadastroTelefones(telefones).cadTelefones(new RunSql().getLastId());
+        if (telefones != null) {
+            new RunSql().inTelefones(telefones);
+        }
     }
 
     public void alterar() {
@@ -27,9 +31,12 @@ public class Cadastro {
         new CadastroAluno(aluno).altAluno();
         new RunSql().upAluno(aluno);
 
-        telefone = new Telefone(aluno.getId());
-        new CadastroTelefone(telefone).altTelefone();
-        new RunSql().upTelefone(telefone);
+        telefones = new ArrayList<Telefone>();
+        new CadastroTelefones(telefones).altTelefones(aluno.getId());
+        if(telefones != null){
+            new RunSql().delTelefones(aluno.getId());
+            new RunSql().inTelefones(telefones);
+        }
     }
 
     public void excluir() {
@@ -49,7 +56,8 @@ public class Cadastro {
             runSql = new RunSql();
             runSql.setId(aluno.getId());
             for (Telefone telefone : runSql.getTelefones()) {
-                System.out.println("\n\nTelefones de " + aluno.getNome() + "\nId: " + telefone.getId() + "\nNumero: " + telefone.getNumero() + "\n");
+                System.out.println("\n\nTelefones de " + aluno.getNome() + "\nId: " + telefone.getId() + "\nNumero: "
+                        + telefone.getNumero() + "\n");
             }
         }
     }

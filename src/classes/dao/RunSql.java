@@ -35,15 +35,17 @@ public class RunSql {
         }
     }
 
-    public void inTelefone(Telefone telefone) {
+    public void inTelefones(ArrayList<Telefone> telefones) {
         pstm = new PreparePstm(new Sql().inTelefone()).getPstm();
-        try {
-            pstm.setInt(1, telefone.getIdaluno());
-            pstm.setString(2, telefone.getNumero());
-            pstm.execute();
-            System.out.println("Executado com sucesso!");
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for (Telefone telefone : telefones) {
+            try {
+                pstm.setInt(1, telefone.getIdaluno());
+                pstm.setString(2, telefone.getNumero());
+                pstm.execute();
+                System.out.println("Executado com sucesso!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -54,17 +56,6 @@ public class RunSql {
             pstm.setString(2, aluno.getCidade());
             pstm.setString(3, aluno.getEstado());
             pstm.setInt(4, aluno.getId());
-            pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void upTelefone(Telefone telefone) {
-        pstm = new PreparePstm(new Sql().upTelefone()).getPstm();
-        try {
-            pstm.setString(1, telefone.getNumero());
-            pstm.setInt(2, telefone.getIdaluno());
             pstm.execute();
         } catch (SQLException e) {
             e.printStackTrace();

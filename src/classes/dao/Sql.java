@@ -14,10 +14,6 @@ public class Sql {
         return "UPDATE aplicativo_java.aluno SET nome=? ,cidade =?, estado= ?" + " WHERE (idaluno = ?)";
     }
 
-    public String upTelefone() {
-        return "UPDATE aplicativo_java.telefone SET numero = ? " + "WHERE (idaluno = ?)";
-    }
-
     public String delAluno() {
         return "DELETE FROM aluno WHERE idaluno=?";
     }
