@@ -42,7 +42,6 @@ public class Menu {
 
                 "Enter the option number:");
         itemSelected = scanner.nextInt();
-        scanner.nextLine();
         System.out.println();
     }
 

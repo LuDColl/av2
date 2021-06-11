@@ -25,6 +25,7 @@ public class CadastroTelefones {
         menu.addItem("Adicionar 2 telefone");
         menu.addItem("Adicionar 3 telefone");
 
+        telefones = new ArrayList<Telefone>();
         run = true;
         while (run) {
             menu.print();
@@ -59,6 +60,8 @@ public class CadastroTelefones {
     public ArrayList<Telefone> altTelefones(int id) {
         menu = new Menu("Deseja atualizar também os telefones desse aluno?");
         menu.addItem("Sim");
+        
+        telefones = new ArrayList<Telefone>();
         run = true;
         while (run) {
             menu.print();
@@ -79,8 +82,9 @@ public class CadastroTelefones {
     }
 
     private void addTelefone(int id) {
+        telefone = new Telefone(id);
         System.out.println("Digite o numero do aluno:");
         telefone.setNumero(scanner.nextLine());
-        telefones.add(new Telefone(id));
+        telefones.add(telefone);
     }
 }

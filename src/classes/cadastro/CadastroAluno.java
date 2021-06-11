@@ -16,9 +16,7 @@ public class CadastroAluno {
     public Aluno cadAluno() {
         aluno = new Aluno();
         System.out.println("Cadastrar Aluno\n\n" + "Digite o nome do aluno:");
-        String t = scanner.nextLine();
-        System.out.println(t);
-        aluno.setNome(t);
+        aluno.setNome(scanner.nextLine());
         System.out.println("Digite seu estado:");
         aluno.setEstado(scanner.nextLine());
         System.out.println("Digite sua Cidade:");
@@ -31,6 +29,7 @@ public class CadastroAluno {
         aluno = new Aluno();
         System.out.println("Alterar Aluno\n\n" + "Qual ID do Aluno:");
         aluno.setIdaluno(scanner.nextInt());
+        scanner.nextLine();
         System.out.println("Digite o novo nome do Aluno:");
         aluno.setNome(scanner.nextLine());
         System.out.println("Digite o novo estado:");
