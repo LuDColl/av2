@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuList {
+public class Menu {
     private String title;
     private List<String> items;
     private int itemSelected;
     private Scanner scanner;
 
-    public MenuList(String title) {
+    public Menu(String title) {
         super();
         setTitle(title);
         items = new ArrayList<String>();
