@@ -15,24 +15,19 @@ public class Cadastro {
     }
 
     public void incluir() {
-        aluno = new Aluno();
-        new CadastroAluno(aluno).cadAluno();
-        new RunSql().inAluno(aluno);
+        new RunSql().inAluno(new CadastroAluno().cadAluno());
 
-        telefones = new ArrayList<Telefone>();
-        new CadastroTelefones(telefones).cadTelefones(new RunSql().getLastId());
+        telefones = new CadastroTelefones().cadTelefones(new RunSql().getLastId());
         if (telefones != null) {
             new RunSql().inTelefones(telefones);
         }
     }
 
     public void alterar() {
-        aluno = new Aluno();
-        new CadastroAluno(aluno).altAluno();
+        aluno = new CadastroAluno().altAluno();
         new RunSql().upAluno(aluno);
 
-        telefones = new ArrayList<Telefone>();
-        new CadastroTelefones(telefones).altTelefones(aluno.getId());
+        telefones = new CadastroTelefones().altTelefones(aluno.getId());
         if(telefones != null){
             new RunSql().delTelefones(aluno.getId());
             new RunSql().inTelefones(telefones);
@@ -40,8 +35,7 @@ public class Cadastro {
     }
 
     public void excluir() {
-        aluno = new Aluno();
-        new CadastroAluno(aluno).exAluno();
+        aluno = new CadastroAluno().exAluno();
 
         new RunSql().delTelefones(aluno.getId());
         new RunSql().delAluno(aluno.getId());

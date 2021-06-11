@@ -8,22 +8,27 @@ public class CadastroAluno {
     private Scanner scanner;
     private Aluno aluno;
 
-    public CadastroAluno(Aluno aluno){
+    public CadastroAluno(){
         super();
-        this.aluno = aluno;
+        scanner = new Scanner(System.in);
     }
 
-    public void cadAluno() {
+    public Aluno cadAluno() {
+        aluno = new Aluno();
         System.out.println("Cadastrar Aluno\n\n" + "Digite o nome do aluno:");
-        aluno.setNome(scanner.nextLine());
+        String t = scanner.nextLine();
+        System.out.println(t);
+        aluno.setNome(t);
         System.out.println("Digite seu estado:");
         aluno.setEstado(scanner.nextLine());
         System.out.println("Digite sua Cidade:");
         aluno.setCidade(scanner.nextLine());
         System.out.println();
+        return aluno;
     }
 
-    public void altAluno() {
+    public Aluno altAluno() {
+        aluno = new Aluno();
         System.out.println("Alterar Aluno\n\n" + "Qual ID do Aluno:");
         aluno.setIdaluno(scanner.nextInt());
         System.out.println("Digite o novo nome do Aluno:");
@@ -33,11 +38,14 @@ public class CadastroAluno {
         System.out.println("Digite a nova Cidade");
         aluno.setCidade(scanner.nextLine());
         System.out.println();
+        return aluno;
     }
 
-    public void exAluno() {
+    public Aluno exAluno() {
+        aluno = new Aluno();
         System.out.println("Excluir Aluno\n\n" + "Digite o Id do aluno: ");
         aluno.setIdaluno(scanner.nextInt());
         System.out.println();
+        return aluno;
     }
 }

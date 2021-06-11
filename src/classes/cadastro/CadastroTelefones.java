@@ -14,12 +14,12 @@ public class CadastroTelefones {
     private Menu menu;
     private Telefone telefone;
 
-    public CadastroTelefones(ArrayList<Telefone> telefones) {
+    public CadastroTelefones() {
         super();
-        this.telefones = telefones;
+        scanner = new Scanner(System.in);
     }
 
-    public void cadTelefones(int id) {
+    public ArrayList<Telefone> cadTelefones(int id) {
         menu = new Menu("Cadastrar Telefones");
         menu.addItem("Adicionar 1 telefone");
         menu.addItem("Adicionar 2 telefone");
@@ -53,9 +53,10 @@ public class CadastroTelefones {
             }
         }
         System.out.println();
+        return telefones;
     }
 
-    public void altTelefones(int id) {
+    public ArrayList<Telefone> altTelefones(int id) {
         menu = new Menu("Deseja atualizar também os telefones desse aluno?");
         menu.addItem("Sim");
         run = true;
@@ -74,6 +75,7 @@ public class CadastroTelefones {
                     break;
             }
         }
+        return telefones;
     }
 
     private void addTelefone(int id) {
