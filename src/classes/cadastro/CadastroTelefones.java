@@ -99,7 +99,9 @@ public class CadastroTelefones {
         } finally {
             System.out.println();
         }
-        telefones.add(telefone);
+        if (telefone.getNumero() != "0") {
+            telefones.add(telefone);
+        }
     }
 
     public boolean exTelefone() {
