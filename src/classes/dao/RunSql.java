@@ -22,16 +22,18 @@ public class RunSql {
         this.id = id;
     }
 
-    public void inAluno(Aluno aluno) {
+    public void inAluno(Aluno aluno) throws NullPointerException {
         pstm = new PreparePstm(new Sql().inAluno()).getPstm();
         try {
             pstm.setString(1, aluno.getNome());
             pstm.setString(2, aluno.getCidade());
             pstm.setString(3, aluno.getEstado());
             pstm.execute();
-            System.out.println("Executado com sucesso!");
+            System.out.println("Aluno " + aluno.getNome() + " adicionado com sucesso!\n");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            System.out.println();
         }
     }
 
@@ -42,14 +44,16 @@ public class RunSql {
                 pstm.setInt(1, telefone.getIdaluno());
                 pstm.setString(2, telefone.getNumero());
                 pstm.execute();
-                System.out.println("Executado com sucesso!");
+                System.out.println("Número " + telefone.getNumero() + " adicionado com sucesso!\n");
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                System.out.println();
             }
         }
     }
 
-    public void upAluno(Aluno aluno) {
+    public void upAluno(Aluno aluno) throws NullPointerException, Exception {
         pstm = new PreparePstm(new Sql().upAluno()).getPstm();
         try {
             pstm.setString(1, aluno.getNome());
@@ -57,6 +61,7 @@ public class RunSql {
             pstm.setString(3, aluno.getEstado());
             pstm.setInt(4, aluno.getId());
             pstm.execute();
+            System.out.println("Aluno " + aluno.getNome() + " atualizado com sucesso!\n");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,18 +72,18 @@ public class RunSql {
         try {
             pstm.setInt(1, id);
             pstm.execute();
-            System.out.println("Aluno de ID " + id + " apagado, com sucesso!");
+            System.out.println("Aluno de id " + id + " apagado com sucesso!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delTelefones(int id) {
+    public void delTelefones(int id) throws NullPointerException {
         pstm = new PreparePstm(new Sql().delTelefones()).getPstm();
         try {
             pstm.setInt(1, id);
             pstm.execute();
-            System.out.println("Telefones do aluno de ID " + id + " apagados com sucesso!");
+            System.out.println("Telefones do aluno de id " + id + " apagados com sucesso!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,8 +102,10 @@ public class RunSql {
                 aluno.setEstado(rset.getString("estado"));
                 alunos.add(aluno);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.out.println("Consulta falhou!");
         }
         return alunos;
     }
@@ -115,7 +122,6 @@ public class RunSql {
                 telefone.setNumero(rset.getString("numero"));
                 telefones.add(telefone);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -128,7 +134,7 @@ public class RunSql {
             rset = pstm.executeQuery();
             rset.next();
             id = rset.getInt("max(idaluno)");
-            System.out.println("Executado com sucesso!");
+            System.out.println("Ultimo aluno selecionado com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         }

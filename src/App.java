@@ -8,12 +8,11 @@ public class App {
         menu.addItem("Alterar");
         menu.addItem("Excluir");
         menu.addItem("Consultar");
-
         Cadastro cadastro = new Cadastro();
-
-        boolean run = true;
-        while (run) {
-            menu.print();
+        boolean run;
+        do {
+            run = true;
+            menu.printIn();
             switch (menu.getItemSelected()) {
                 case 1:
                     cadastro.incluir();
@@ -31,9 +30,9 @@ public class App {
                     run = false;
                     break;
                 default:
-                    System.out.println(menu.getItemSelected() + " não é um valor válido.\n");
+                    System.out.println(menu.getItemSelected() + " não é um número válido.\n");
                     break;
             }
-        }
+        } while (run);
     }
 }

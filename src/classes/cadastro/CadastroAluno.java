@@ -1,5 +1,6 @@
 package classes.cadastro;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import classes.Aluno;
@@ -28,8 +29,24 @@ public class CadastroAluno {
     public Aluno altAluno() {
         aluno = new Aluno();
         System.out.println("Alterar Aluno\n\n" + "Qual ID do Aluno:");
-        aluno.setIdaluno(scanner.nextInt());
-        scanner.nextLine();
+        try {
+            aluno.setIdaluno(scanner.nextInt());
+        } catch (InputMismatchException e) {
+            boolean run;
+            do {
+                run = false;
+                aluno = new Aluno();
+                scanner = new Scanner(System.in);
+                System.out.println("Digite apenas números!");
+                try {
+                    aluno.setIdaluno(scanner.nextInt());
+                } catch (Exception f) {
+                    run = true;
+                }
+            } while (run);
+        } finally {
+            scanner.nextLine();
+        }
         System.out.println("Digite o novo nome do Aluno:");
         aluno.setNome(scanner.nextLine());
         System.out.println("Digite o novo estado:");
@@ -43,8 +60,24 @@ public class CadastroAluno {
     public Aluno exAluno() {
         aluno = new Aluno();
         System.out.println("Excluir Aluno\n\n" + "Digite o Id do aluno: ");
-        aluno.setIdaluno(scanner.nextInt());
-        System.out.println();
+        try {
+            aluno.setIdaluno(scanner.nextInt());
+        } catch (InputMismatchException e) {
+            boolean run;
+            do {
+                run = false;
+                aluno = new Aluno();
+                scanner = new Scanner(System.in);
+                System.out.println("Digite apenas números!");
+                try {
+                    aluno.setIdaluno(scanner.nextInt());
+                } catch (Exception f) {
+                    run = true;
+                }
+            } while (run);
+        } finally{
+            System.out.println();
+        }
         return aluno;
     }
 }

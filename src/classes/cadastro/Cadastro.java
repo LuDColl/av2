@@ -15,30 +15,47 @@ public class Cadastro {
     }
 
     public void incluir() {
-        new RunSql().inAluno(new CadastroAluno().cadAluno());
-
-        telefones = new CadastroTelefones().cadTelefones(new RunSql().getLastId());
-        if (telefones != null) {
-            new RunSql().inTelefones(telefones);
+        try {
+            new RunSql().inAluno(new CadastroAluno().cadAluno());
+            telefones = new CadastroTelefones().cadTelefones(new RunSql().getLastId());
+            if (telefones != null) {
+                new RunSql().inTelefones(telefones);
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Dados inutilizados!");
         }
     }
 
     public void alterar() {
         aluno = new CadastroAluno().altAluno();
-        new RunSql().upAluno(aluno);
-
-        telefones = new CadastroTelefones().altTelefones(aluno.getId());
-        if(telefones != null){
-            new RunSql().delTelefones(aluno.getId());
-            new RunSql().inTelefones(telefones);
+        try {
+            new RunSql().upAluno(aluno);
+            if (new CadastroTelefones().exTelefone()) {
+                new RunSql().delTelefones(aluno.getId());
+                telefones = new CadastroTelefones().altTelefones(aluno.getId());
+                if (telefones != null) {
+                    new RunSql().inTelefones(telefones);
+                }
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Falha ao atualizar aluno!");
+        } catch(Exception e){
+            System.out.println("Erro inesperado!");
+        }finally {
+            System.out.println();
         }
     }
 
     public void excluir() {
         aluno = new CadastroAluno().exAluno();
-
-        new RunSql().delTelefones(aluno.getId());
-        new RunSql().delAluno(aluno.getId());
+        try {
+            new RunSql().delTelefones(aluno.getId());
+            new RunSql().delAluno(aluno.getId());
+        } catch (NullPointerException e) {
+            System.out.println("Falha ao deletar!");
+        } finally {
+            System.out.println();
+        }
     }
 
     public void consultar() {
