@@ -15,11 +15,11 @@ public class Conection {
         conn = null;
         try {
             conn = DriverManager.getConnection(DATABASE_URL, USERNAEM, PASSWORD);
-            System.out.println("Conexão obtida!\n");
+            System.out.println("Conexão obtida!");
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
+            System.out.println("Falha na conexção!");
+        } finally{
+            System.out.println();
         }
         return conn;
     }
@@ -30,7 +30,8 @@ public class Conection {
             System.out.println("Driver funcionando!");
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally{
+            System.out.println();
         }
     }
-
 }

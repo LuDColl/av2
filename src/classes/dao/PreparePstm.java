@@ -17,7 +17,6 @@ public class PreparePstm {
         try {
             return (PreparedStatement) new Conection().createConnectionToMySQL().prepareStatement(sql);
         } catch (Exception e) {
-            e.printStackTrace();
             return pstm = null;
         } finally {
             try {
